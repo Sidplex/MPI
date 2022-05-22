@@ -1,4 +1,4 @@
-<u>****For Installation of MPI on Ubuntu****</u>
+## ***For Installation of MPI on Ubuntu***
 
 (For C Program)
 
@@ -23,7 +23,7 @@ mpirun -np 4 ./hello_world
 
 mpiexec -n 4 python3 hello_world.py
 
-<u>****For Installation of MPI on Windows****</u>
+## ***For Installation of MPI on Windows***
 
 We need Cygwin for both C and Python MPI programs
 
