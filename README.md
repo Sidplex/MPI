@@ -1,4 +1,4 @@
-**For Installation of MPI on Ubuntu**
+****For Installation of MPI on Ubuntu****
 
 (For C Program)
 
@@ -23,7 +23,7 @@ mpirun -np 4 ./hello_world
 
 mpiexec -n 4 python3 hello_world.py
 
-**For Installation of MPI on Windows**
+****For Installation of MPI on Windows****
 
 We need Cygwin for both C and Python MPI programs
 
@@ -32,3 +32,9 @@ We need Cygwin for both C and Python MPI programs
 
 ![image](https://user-images.githubusercontent.com/74717951/169682786-02dc1085-5b2e-4b12-a2d7-9c4d5690a214.png)
 
+2. Compiling and running the program is same as we do in Ubuntu.
+
+(For Python program)
+
+1. On Cygwin Terminal, Python is installed by default.
+2. Compiling and running the program is same as we do in Ubuntu.
