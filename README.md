@@ -23,6 +23,8 @@ mpirun -np 4 ./hello_world
 
 mpiexec -n 4 python3 hello_world.py
 
+***Make sure to change directory to the place where the C/Py file is present***
+
 ## ***For Installation of MPI on Windows***
 
 We need Cygwin for both C and Python MPI programs
