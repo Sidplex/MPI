@@ -23,7 +23,7 @@ integral *= height
 end = time.time()
 totaltime = end - begin
 print(" With n = %d trapezoids, our estimate \n" %(n))
-print("of the integral from %f to %f = %f\n" %(a,b,integral))
+print("of the integral from %f to %f = %0.8f\n" %(a,b,integral))
 print("Total runtime of the program is %f" %(totaltime))
 
 xcords = range(num1,num2)
