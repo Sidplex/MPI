@@ -17,7 +17,7 @@ int main(){
     scanf("%f %f %d", &a, &b, &n);
     start = clock();
 
-    h = b-a/n;
+    h = (b-a)/n;
     integral = (f(a) + f(b))/2.0;
     x = a;
     for( int i = 1; i <= n-1; i++){
@@ -33,6 +33,6 @@ int main(){
 
 }
 
-float f(float x){
-    float return_val;
+float f(float x){ 
+    return x*x;
 }
