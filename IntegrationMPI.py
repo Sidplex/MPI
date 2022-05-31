@@ -11,6 +11,7 @@ def Trap(local_a , local_b, local_n, h):
         x += h
         integral += fx(x)
     integral *= h
+    return integral
 
 
 comm = MPI.COMM_WORLD
@@ -20,8 +21,7 @@ a = 0.0
 b = 2.0
 n = 1000
 source = 1
-integral = 0.0
-total = 0.0
+
 
 h = (b-a)/n
 
@@ -36,7 +36,7 @@ if rank == 0:
     while (source < size):
         source += 1
         comm.recv(integral,source,tag = 0)
-        total += integral
+        total = total + integral
 else:
     comm.send(integral, dest = 0, tag = 0)
 
