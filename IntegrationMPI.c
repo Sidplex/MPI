@@ -2,6 +2,36 @@
 #include <stdlib.h>
 #include "mpi.h"
 
+void Get_data(
+    float* ap;
+    float* bp;
+    int* np;
+    int my_rank;
+    int size;
+){
+    int source = 0;
+    int dest;
+    int tag;
+    MPI_Status status;
+    
+    if (my_rank == 0){
+        printf("Enter a, b and n \n");
+        scanf("%f %f %d", &a, &b, &n);
+        for ( dest =1 ; dest < size; dest++){
+            MPI_Send(ap, 1 , MPI_FLOAT, dest , tag=0, MPI_COMM_WORLD);
+            MPI_Send(bp, 1 , MPI_FLOAT, dest , tag=1, MPI_COMM_WORLD);
+            MPI_Send(np, 1 , MPI_INT, dest , tag=2, MPI_COMM_WORLD);
+        }
+
+
+    }
+    else{
+        MPI_Recv(ap, 1, MPI_FLOAT, source, tag=0, MPI_COMM_WORLD, &status);
+        MPI_Recv(bp, 1, MPI_FLOAT, source, tag=1, MPI_COMM_WORLD, &status);
+        MPI_Recv(np, 1, MPI_INT, source, tag=2, MPI_COMM_WORLD, &status);
+    }
+}
+
 int main(int argc, char** argv){
     int my_rank;
     int size;
@@ -18,9 +48,6 @@ int main(int argc, char** argv){
     int dest = 0;
     int tag = 0;
     MPI_Status status;
-
-    printf("Enter a, b and n \n");
-    scanf("%f %f %d", &a, &b, &n);
 
     float Trap(float local_a, float local_b, int local_n, float h);
 
@@ -79,3 +106,4 @@ float Trap(float local_a, float local_b, int local_n, float h){
 float f(float x){
     return x*x;
 }
+
