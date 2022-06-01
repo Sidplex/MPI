@@ -16,16 +16,16 @@ def Trap(local_a , local_b, local_n, h):
 comm = MPI.COMM_WORLD
 rank=comm.rank
 size=comm.size
-a = 0
-b = 0
-n = 0
 source = 1
 dest = 0
+a = 0.0
+b = 0.0
+n = 0
 
 if rank == 0:
 
-    a = int(input("Enter Upper Limit \n"))
-    b = int(input("Enter Lower Limit \n"))
+    a = float(input("Enter Upper Limit \n"))
+    b = float(input("Enter Lower Limit \n"))
     n = int(input("Enter number of trapezoids \n"))
     for i in range(1,size):
         dest += 1
@@ -34,9 +34,10 @@ if rank == 0:
         comm.send(n, dest, tag = 2)
 
 else:
-    comm.recv(a, source, tag = 0)
-    comm.recv(b, source, tag = 1)
-    comm.recv(n, source, tag = 2)
+    kl=comm.recv(source = 0, tag = 0)
+    jk=comm.recv(source = 0, tag = 1)
+    gh=comm.recv(source = 0, tag = 2)
+    print(kl,jk,gh)
 
 
 h = (b-a)/n
