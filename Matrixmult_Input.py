@@ -1,26 +1,29 @@
-rows = int(input("Enter the Number of rows  for the first matrix: " ))
-column = int(input("Enter the Number of Columns for the first matrix: "))
-
-print("Enter the elements of First Matrix:")
-matrix_a= [[int(input()) for i in range(column)] for i in range(rows)]
-
-print("First Matrix is: ")
-for n in matrix_a:
-    print(n)
-column_b = int(input("Enter the Number of Columns for the second matrix: "))
-
-print("Enter the elements of Second Matrix:")
-
-matrix_b= [[int(input()) for i in range(column_b)] for i in range(column)]
-for n in matrix_b:
-    print(n)
-    
-result=[[0 for i in range(column_b)] for i in range(rows)]
-
-for i in range(len(matrix_a)):
-    for j in range(len(matrix_b[0])):
-        for k in range(len(matrix_b)):
-            result [i][j]+=matrix_a[i][k]*matrix_b[k][j]
-print("\n A X B is: ")
-for r in result:
-    print(r)
+r1=int(input("Enter number of Rows of Matrix A: "))
+c1=int(input("Enter number of Columns of Matrix A: "))
+A=[[0 for i in range(c1)] for j in range(r1)] 
+print("Enter Matrix Elements of A:")
+for i in range(r1):
+    for j in range(c1):
+        x=int(input())
+        A[i][j]=x
+r2=int(input("Enter number of Rows of Matrix B: "))
+c2=int(input("Enter number of Columns of Matrix B: "))
+B=[[0 for i in range(c2)] for j in range(r2)] 
+print("Enter Matrix Elements of B:")
+for i in range(r2):
+    for j in range(c2):
+        x=int(input())
+        B[i][j]=x
+if(c1==r2): 
+    P=[[0 for i in range(c2)] for j in range(r1)]
+    for i in range(len(A)):
+        for j in range(c2):
+            for k in range(len(B)):
+                P[i][j]=P[i][j]+(A[i][k]*B[k][j])
+    print("Product of Matrices A and B: ")
+    for i in range(r1):
+        for j in range(c2):
+            print(P[i][j],end=" ")
+        print()
+else:
+    print("Matrix Multiplication is not possible.")
