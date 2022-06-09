@@ -34,11 +34,9 @@ if rank == 0:
         comm.send(n, dest, tag = 2)
 
 else:
-    kl=comm.recv(source = 0, tag = 0)
-    jk=comm.recv(source = 0, tag = 1)
-    gh=comm.recv(source = 0, tag = 2)
-    print(kl,jk,gh)
-
+    a=comm.recv(source = 0, tag = 0)
+    b=comm.recv(source = 0, tag = 1)
+    n=comm.recv(source = 0, tag = 2)
 
 h = (b-a)/n
 local_n = n/size
@@ -50,9 +48,10 @@ integral = Trap(local_a, local_b, local_n, h)
 if rank == 0:
     total = integral
     while (source < size):
+        integral = comm.recv(source = source,tag = 0)
         source += 1
-        comm.recv(integral,source,tag = 0)
         total = total + integral
+        
 else:
     comm.send(integral, dest = 0, tag = 0)
 
