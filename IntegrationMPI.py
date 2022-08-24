@@ -1,4 +1,5 @@
 from mpi4py import MPI
+import mpi4py
 
 def fx(x):
     return x*x
@@ -16,6 +17,8 @@ def Trap(local_a , local_b, local_n, h):
 comm = MPI.COMM_WORLD
 rank=comm.rank
 size=comm.size
+
+
 source = 1
 dest = 0
 a = 0.0
@@ -37,7 +40,7 @@ else:
     a=comm.recv(source = 0, tag = 0)
     b=comm.recv(source = 0, tag = 1)
     n=comm.recv(source = 0, tag = 2)
-
+time1 = mpi4py.MPI.Wtime()
 h = (b-a)/n
 local_n = n/size
 local_a = a + rank * local_n * h
@@ -54,8 +57,13 @@ if rank == 0:
         
 else:
     comm.send(integral, dest = 0, tag = 0)
+time2 = mpi4py.MPI.Wtime()
+duration = time2 - time1
+totaltime = comm.reduce(duration,op = MPI.SUM, root = 0)
+print("Runtime at %d is %f" %(rank,duration))
 
 if rank == 0:
     print(" With n = %d trapezoids, our estimate \n" %(n))
     print("of the integral from %f to %f = %0.8f\n" %(a,b,total))
+    print("Totaltime = ", totaltime)
 
