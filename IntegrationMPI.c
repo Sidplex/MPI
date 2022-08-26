@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "mpi.h"
 
 int main(int argc, char** argv){
     int my_rank;
+    double time1, time2, duration, global;
     int size;
     float a ;
     float b ;
@@ -14,7 +16,7 @@ int main(int argc, char** argv){
     int local_n;
     float integral;
     float total;
-    int source;
+    int source =0;
     int dest = 0;
     int tag = 0;
     MPI_Status status;
@@ -42,7 +44,8 @@ int main(int argc, char** argv){
         MPI_Recv(&b, 1, MPI_FLOAT, source, tag=1, MPI_COMM_WORLD, &status);
         MPI_Recv(&n, 1, MPI_INT, source, tag=2, MPI_COMM_WORLD, &status);
     }
-
+    MPI_Barrier(MPI_COMM_WORLD);
+    time1 = MPI_Wtime();
     h = (b-a)/n;
     
     local_n = n/size;
@@ -63,12 +66,16 @@ int main(int argc, char** argv){
     else {
         MPI_Send(&integral, 1, MPI_FLOAT, dest, tag, MPI_COMM_WORLD); 
     }
+    time2 = MPI_Wtime();
+    duration = time2 - time1;
+    MPI_Reduce(&duration, &global,1,MPI_DOUBLE,MPI_SUM,0,MPI_COMM_WORLD);      
+
     if (my_rank == 0){
         printf("With n = %d trapezoids, our estimate \n", n);
-
         printf("of the integral from %f to %f = %0.8f\n",a,b,total);
-    
+        printf("Global runtime is %f\n",global);
     }    
+    printf("Runtime at %d is %f \n", my_rank,duration); 
     MPI_Finalize();
  
 }
